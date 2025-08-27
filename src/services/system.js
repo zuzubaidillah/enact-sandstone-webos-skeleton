@@ -1,6 +1,5 @@
 import LS2Request from "@enact/webos/LS2Request";
 
-
 export function callLS2(service, method, parameters = {}) {
 	return new Promise((resolve, reject) => {
 		const bridge = new LS2Request();

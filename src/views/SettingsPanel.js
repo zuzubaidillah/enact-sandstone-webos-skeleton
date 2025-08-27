@@ -1,25 +1,39 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
+import Spotlight from '@enact/spotlight';
+import Heading from '@enact/sandstone/Heading';
+import BodyText from '@enact/sandstone/BodyText';
+import Button from '@enact/sandstone/Button';
+import SwitchItem from '@enact/sandstone/SwitchItem';
+import Picker from '@enact/sandstone/Picker';
+import {Row, Column, Cell} from '@enact/ui/Layout';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import {saveLocale} from '../services/locale';
 import $L from '@enact/i18n/$L';
 
-
-function SettingsBase({onDone, updateLocale}){
+function SettingsBase({onDone, updateLocale}) {
 	const [pointerMode, setPointerMode] = useState(
 		typeof Spotlight.getPointerMode === 'function' ? Spotlight.getPointerMode() : false
 	);
 	const [language, setLanguage] = useState('en-US');
 
-
 	useEffect(() => { Spotlight.setPointerMode(pointerMode); }, [pointerMode]);
 
+	const handleTogglePointer = useCallback(() => {
+		setPointerMode((v) => !v);
+	}, []);
 
-	const applyLanguage = (code) => {
+	const handleLanguageChange = useCallback(({value}) => {
+		const code = value === 0 ? 'en-US' : 'id-ID';
 		setLanguage(code);
 		if (typeof updateLocale === 'function') {
 			updateLocale(code);
 			saveLocale(code);
 		}
-	};
+	}, [updateLocale]);
 
+	const handleDone = useCallback(() => {
+		if (typeof onDone === 'function') onDone();
+	}, [onDone]);
 
 	return (
 		<Column style={{gap: '24px'}}>
@@ -27,18 +41,17 @@ function SettingsBase({onDone, updateLocale}){
 				<Heading showLine>{$L('General')}</Heading>
 				<SwitchItem
 					selected={pointerMode}
-					onToggle={() => setPointerMode(v => !v)}
+					onToggle={handleTogglePointer}
 				>
 					{$L('Pointer Mode')}
 				</SwitchItem>
 			</Cell>
 
-
 			<Cell>
 				<Heading showLine>{$L('Language')}</Heading>
 				<Picker
 					value={language === 'en-US' ? 0 : 1}
-					onChange={({value}) => applyLanguage(value === 0 ? 'en-US' : 'id-ID')}
+					onChange={handleLanguageChange}
 					width="small"
 				>
 					{['English (US)', 'Bahasa Indonesia']}
@@ -48,15 +61,13 @@ function SettingsBase({onDone, updateLocale}){
 				</BodyText>
 			</Cell>
 
-
 			<Cell>
 				<Row style={{gap: 12}}>
-					<Button onClick={onDone}>{$L('Done')}</Button>
+					<Button onClick={handleDone}>{$L('Done')}</Button>
 				</Row>
 			</Cell>
 		</Column>
 	);
 }
-
 
 export default I18nContextDecorator({updateLocaleProp: 'updateLocale'})(SettingsBase);

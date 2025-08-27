@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import {Button} from "@enact/sandstone/Button";
 import {Heading} from "@enact/sandstone/Heading";
 import {BodyText} from "@enact/sandstone/BodyText";
@@ -12,6 +12,20 @@ import $L from "@enact/i18n/$L";
 
 export default function MainPanel({onOpenSettings, onOpenVideo}) {
 	const [count, setCount] = useState(0);
+
+	// === handlers (menghindari react/jsx-no-bind) ===
+	const handleDec = useCallback(() => {
+		setCount(c => c - 1);
+	}, []);
+
+	const handleInc = useCallback(() => {
+		setCount(c => c + 1);
+	}, []);
+
+	const handleReset = useCallback(() => {
+		setCount(0);
+	}, []);
+
 	return (
 		<Column style={{gap: "24px"}}>
 			<Cell>
@@ -33,9 +47,9 @@ export default function MainPanel({onOpenSettings, onOpenVideo}) {
 						<Heading showLine>{$L("Counter")}</Heading>
 						<BodyText>{$L("Use LEFT/RIGHT to focus buttons, ENTER to activate.")}</BodyText>
 						<Row style={{gap: "12px", marginTop: "12px"}}>
-							<Button onClick={() => setCount(c => c - 1)}>-1</Button>
-							<Button onClick={() => setCount(c => c + 1)}>+1</Button>
-							<Button onClick={() => setCount(0)}>{$L("Reset")}</Button>
+							<Button onClick={handleDec}>-1</Button>
+							<Button onClick={handleInc}>+1</Button>
+							<Button onClick={handleReset}>{$L("Reset")}</Button>
 						</Row>
 						<Heading spacing="small">
 							{$L("Value")}: {count}

@@ -2,6 +2,7 @@
   "name": "enact-sandstone-webos-skeleton",
   "version": "1.0.0",
   "private": true,
+  "main": "src/index.js",
   "scripts": {
     "serve": "enact serve",
     "pack": "enact pack",
@@ -14,14 +15,14 @@
     "test-watch": "enact test --watch"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "@enact/sandstone": "^2.9.13",
     "@enact/core": "^4.7.9",
     "@enact/i18n": "^4.7.9",
+    "@enact/sandstone": "^2.7.13",
     "@enact/spotlight": "^4.7.9",
     "@enact/ui": "^4.7.9",
-    "@enact/webos": "^4.7.8"
+    "@enact/webos": "^4.7.8",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@enact/cli": "^6.0.0"
@@ -29,5 +30,13 @@
   "enact": {
     "theme": "sandstone",
     "title": "Enact Sandstone Skeleton"
+  },
+  "eslintConfig": {
+    "files": [
+      "src/services/locale.js"
+    ],
+    "env": {
+      "browser": true
+    }
   }
 }

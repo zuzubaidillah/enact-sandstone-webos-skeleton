@@ -6,6 +6,8 @@
   "main": "index.html",
   "title": "Enact Sandstone Skeleton",
   "icon": "icon.png",
+  "miniicon": "icon-mini.png",
+  "largeIcon": "icon-large.png",
   "bgColor": "#000000",
   "iconColor": "#FFFFFF"
 }

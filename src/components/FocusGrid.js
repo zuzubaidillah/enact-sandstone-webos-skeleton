@@ -1,22 +1,10 @@
-import kind from "@enact/core/kind";
-import Spottable from "@enact/spotlight/Spottable";
-import {GridListImageItem} from "@enact/sandstone/GridListImageItem";
-import {FlexGrid} from "@enact/sandstone/FlexGrid";
-
-
-const SpotItem = Spottable((props) => (
-	<GridListImageItem
-		caption={props.caption}
-		subCaption="Focusable"
-		onClick={props.onClick}
-		style={{width: 300}}
-	/>
-));
-
+// src/components/FocusGrid.js (Sandstone version)
+import kind from '@enact/core/kind';
+import ImageItem from '@enact/sandstone/ImageItem';
+import ri from '@enact/ui/resolution';
 
 const FocusGrid = kind({
-	name: "FocusGrid",
-	propTypes: {},
+	name: 'FocusGrid',
 	defaultProps: {
 		rows: 2,
 		cols: 5
@@ -27,25 +15,32 @@ const FocusGrid = kind({
 			caption: `Item ${i + 1}`
 		}));
 
+		// ukuran tile responsif (ri.scale) biar konsisten di FHD/4K
+		const tileW = ri.scale(300);
+		const gap = ri.scale(12);
 
 		return (
-			<FlexGrid
-				direction="row"
-				wrap
-				spacing={12}
+			<div
+				style={{
+					display: 'grid',
+					gridTemplateColumns: `repeat(${cols}, ${tileW}px)`,
+					gap
+				}}
 				{...rest}
 			>
 				{items.map(({key, caption}) => (
-					<SpotItem
+					<ImageItem
 						key={key}
 						caption={caption}
-						onClick={() => console.log("Selected", caption)}
+						subCaption="Focusable"
+						// placeholder sederhana; ganti dgn gambar asli jika ada
+						src="https://dummyimage.com/480x270/202020/ffffff&text=%20"
+						onClick={() => console.log('Selected', caption)}
 					/>
 				))}
-			</FlexGrid>
+			</div>
 		);
 	}
 });
-
 
 export default FocusGrid;
