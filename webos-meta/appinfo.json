@@ -1,0 +1,11 @@
+{
+  "id": "com.example.enact.skeleton",
+  "version": "1.0.0",
+  "vendor": "Example",
+  "type": "web",
+  "main": "index.html",
+  "title": "Enact Sandstone Skeleton",
+  "icon": "icon.png",
+  "bgColor": "#000000",
+  "iconColor": "#FFFFFF"
+}

@@ -1,0 +1,33 @@
+{
+  "name": "enact-sandstone-webos-skeleton",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "enact serve",
+    "pack": "enact pack",
+    "lint": "enact lint",
+    "test": "enact test",
+    "pack-p": "enact pack -p",
+    "watch": "enact pack --watch",
+    "clean": "enact clean",
+    "license": "enact license",
+    "test-watch": "enact test --watch"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@enact/sandstone": "^2.9.13",
+    "@enact/core": "^4.7.9",
+    "@enact/i18n": "^4.7.9",
+    "@enact/spotlight": "^4.7.9",
+    "@enact/ui": "^4.7.9",
+    "@enact/webos": "^4.7.8"
+  },
+  "devDependencies": {
+    "@enact/cli": "^6.0.0"
+  },
+  "enact": {
+    "theme": "sandstone",
+    "title": "Enact Sandstone Skeleton"
+  }
+}
