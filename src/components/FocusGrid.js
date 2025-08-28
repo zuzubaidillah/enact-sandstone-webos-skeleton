@@ -1,4 +1,4 @@
-// src/components/FocusGrid.js (Sandstone version)
+// src/components/FocusGrid.js — ESLint fix (react/jsx-no-bind)
 import kind from '@enact/core/kind';
 import ImageItem from '@enact/sandstone/ImageItem';
 import ri from '@enact/ui/resolution';
@@ -9,15 +9,21 @@ const FocusGrid = kind({
 		rows: 2,
 		cols: 5
 	},
-	render: ({rows, cols, ...rest}) => {
+	render: ({rows, cols, onItemClick, ...rest}) => {
 		const items = Array.from({length: rows * cols}, (_, i) => ({
 			key: i,
 			caption: `Item ${i + 1}`
 		}));
 
-		// ukuran tile responsif (ri.scale) biar konsisten di FHD/4K
 		const tileW = ri.scale(300);
 		const gap = ri.scale(12);
+
+		// Handler tanpa arrow di JSX; diteruskan via props ke ImageItem
+		const handleItemClick = (caption) => () => {
+			// jika parent mengirim onItemClick, panggil itu; fallback ke console.log
+			if (typeof onItemClick === 'function') onItemClick(caption);
+			else console.log('Selected', caption);
+		};
 
 		return (
 			<div
@@ -33,9 +39,8 @@ const FocusGrid = kind({
 						key={key}
 						caption={caption}
 						subCaption="Focusable"
-						// placeholder sederhana; ganti dgn gambar asli jika ada
 						src="https://dummyimage.com/480x270/202020/ffffff&text=%20"
-						onClick={() => console.log('Selected', caption)}
+						onClick={handleItemClick(caption)}
 					/>
 				))}
 			</div>

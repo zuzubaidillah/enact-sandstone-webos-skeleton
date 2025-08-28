@@ -1,0 +1,36 @@
+// src/views/VideoPanel.module.less
+@pad: 24px;
+@gap: 12px;
+
+.videoPanel {
+  padding: @pad;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+}
+
+.player {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+}
+
+.actions {
+  margin-top: 8px;
+  display: grid;
+  grid-auto-flow: column;
+  gap: @gap;
+  align-items: center;
+}
+
+.helper {
+  margin-top: 8px;
+  opacity: 0.85;
+}
+
+// Optional: subtle hover for buttons (keeps Sandstone focus ring)
+:global(.enact-sandstone-Button.button):hover {
+  transform: translateY(-1px);
+}
+
+
+// -----------------------------------------------

@@ -12,7 +12,9 @@
     "watch": "enact pack --watch",
     "clean": "enact clean",
     "license": "enact license",
-    "test-watch": "enact test --watch"
+    "test-watch": "enact test --watch",
+    "ipk": "cp -R webos-meta/* dist/ && ares-package dist -o ./ipk",
+    "deploy": "npm run ipk && ares-install -d tv ./ipk/$(jq -r .id webos-meta/appinfo.json)_$(jq -r .version webos-meta/appinfo.json)_all.ipk && ares-launch -d tv $(jq -r .id webos-meta/appinfo.json)"
   },
   "dependencies": {
     "@enact/core": "^4.7.9",

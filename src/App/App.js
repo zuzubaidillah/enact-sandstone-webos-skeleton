@@ -5,16 +5,18 @@ import MainPanel from '../views/MainPanel';
 import SettingsPanel from '../views/SettingsPanel';
 import VideoPanel from '../views/VideoPanel';
 
-// Default to 5‑way focus (remote arrows) on TVs
+
 Spotlight.setPointerMode(false);
 
 
-export default function App(){
+export default function App({onLocaleChange}){ // receive bridge from index
 	const [index, setIndex] = useState(0);
+
 
 	const goHome = useCallback(() => setIndex(0), []);
 	const openSettings = useCallback(() => setIndex(1), []);
 	const openVideo = useCallback(() => setIndex(2), []);
+
 
 	return (
 		<Panels index={index} onBack={goHome}>
@@ -26,7 +28,7 @@ export default function App(){
 
 			<Panel>
 				<Header title="Settings" />
-				<SettingsPanel onDone={goHome} />
+				<SettingsPanel onDone={goHome} onLocaleChange={onLocaleChange} />
 			</Panel>
 
 
